@@ -7,8 +7,11 @@ import 'bulma/css/bulma.css'
 import '../App.css'
 
 import PwdSearchBar from './PwdSearchBar'
+import PwdForm from './PwdForm'
+import PwdList from './PwdList'
 
 @observer class PwdHome extends React.Component {
+
   render () {
     return (
       <div className="hero is-light-blue-bold is-fullheight">
@@ -19,19 +22,24 @@ import PwdSearchBar from './PwdSearchBar'
 
           <div className="container">
             <PwdSearchBar />
-            <table className="table is-bordered is-fullwidth">
+            <table className="table is-fullwidth">
               <thead>
                 <tr>
-                  <th className="has-text-centered">URL</th>
-                  <th className="has-text-centered">Username</th>
-                  <th className="has-text-centered">Password</th>
-                  <th className="has-text-centered">Created at</th>
-                  <th className="has-text-centered">Last Updated</th>
+                  <th className="short-p">URL</th>
+                  <th className="short-p">Username</th>
+                  <th className="short-p">Password</th>
+                  <th className="short-p">Notes</th>
+                  <th className="short-p">Created at</th>
+                  <th className="short-p">Last Updated</th>
+                  <th className="short-p"></th>
                 </tr>
               </thead>
+              <PwdList />
             </table>
+
           </div>
 
+          <PwdForm />
         </div>
       </div>
     )
