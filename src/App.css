@@ -26,3 +26,21 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.is-light-blue{
+  background-color: #27aee8;
+}
+.is-light-blue-bold {
+  background: rgba(39,174,232,1);
+  background: -moz-linear-gradient(-45deg, rgba(39,174,232,1) 0%, rgba(125,194,219,1) 100%);
+  background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(39,174,232,1)), color-stop(100%, rgba(125,194,219,1)));
+  background: -webkit-linear-gradient(-45deg, rgba(39,174,232,1) 0%, rgba(125,194,219,1) 100%);
+  background: -o-linear-gradient(-45deg, rgba(39,174,232,1) 0%, rgba(125,194,219,1) 100%);
+  background: -ms-linear-gradient(-45deg, rgba(39,174,232,1) 0%, rgba(125,194,219,1) 100%);
+  background: linear-gradient(135deg, rgba(39,174,232,1) 0%, rgba(125,194,219,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#27aee8', endColorstr='#7dc2db', GradientType=1 );
+}
+
+.is-top {
+  align-items: flex-start !important; 
+}
