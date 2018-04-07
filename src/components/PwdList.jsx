@@ -6,7 +6,7 @@ import store from '../mobx/index.js'
 import 'bulma/css/bulma.css'
 import '../App.css'
 
-
+import swal from 'sweetalert2'
 
 @observer class PwdList extends React.Component {
 
@@ -53,13 +53,34 @@ import '../App.css'
   }
 
   deleteData = (pwd) => {
-    store.isDelete = true
-    this.props.removeData(pwd)
+    swal({
+      title: 'Are you sure',
+      text: `You can't recover this data`,
+      type: 'warning',
+      showCancelButton: true,
+      // confirmButtonColor: '#3085d6',
+      // cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'Cancel',
+      confirmButtonClass: 'button is-danger',
+      cancelButtonClass: 'button is-info',
+      buttonsStyling: false,
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
+        store.isDelete = true
+        this.props.removeData(pwd)
+        swal(
+          'Entry Deleted',
+          'The site account data is removed',
+          'success'
+        )
+      }
+    })
 
   }
 
   static getData = (passwords) => {
-    console.log('masuk ', passwords)
     store.loadPasswords(passwords)
   }
 
@@ -70,23 +91,23 @@ import '../App.css'
           {
             store.passFilter ?
             store.passFilter.map((pwd, i) => (
-              <tr key={ i } onClick={ () => store.modalUpdateTrigger(pwd) }>
-                <td className="short-p">
+              <tr key={ i }>
+                <td className="short-p" onClick={ () => store.modalUpdateTrigger(pwd) }>
                   { pwd[1].url }
                 </td>
-                <td className="short-p">
+                <td className="short-p" onClick={ () => store.modalUpdateTrigger(pwd) }>
                   { pwd[1].username }
                 </td>
-                <td className="short-p">
+                <td className="short-p" onClick={ () => store.modalUpdateTrigger(pwd) }>
                   { pwd[1].password }
                 </td>
-                <td className="short-p">
+                <td className="short-p" onClick={ () => store.modalUpdateTrigger(pwd) }>
                   { pwd[1].notes }
                 </td>
-                <td className="short-p">
+                <td className="short-p" onClick={ () => store.modalUpdateTrigger(pwd) }>
                   { new Date(pwd[1].createdAt).toDateString() }
                 </td>
-                <td className="short-p">
+                <td className="short-p" onClick={ () => store.modalUpdateTrigger(pwd) }>
                   { new Date(pwd[1].updatedAt).toDateString() }
                 </td>
                 <td className="short-p">
@@ -106,23 +127,23 @@ import '../App.css'
           {
             store.passList ?
             Object.entries(this.props.passManager).map((pwd, i) => (
-              <tr key={ i } onClick={ () => store.modalUpdateTrigger(pwd) }>
-                <td className="short-p">
+              <tr key={ i }>
+                <td className="short-p" onClick={ () => store.modalUpdateTrigger(pwd) }>
                   { pwd[1].url }
                 </td>
-                <td className="short-p">
+                <td className="short-p" onClick={ () => store.modalUpdateTrigger(pwd) }>
                   { pwd[1].username }
                 </td>
-                <td className="short-p">
+                <td className="short-p" onClick={ () => store.modalUpdateTrigger(pwd) }>
                   { pwd[1].password }
                 </td>
-                <td className="short-p">
+                <td className="short-p" onClick={ () => store.modalUpdateTrigger(pwd) }>
                   { pwd[1].notes }
                 </td>
-                <td className="short-p">
+                <td className="short-p" onClick={ () => store.modalUpdateTrigger(pwd) }>
                   { new Date(pwd[1].createdAt).toDateString() }
                 </td>
-                <td className="short-p">
+                <td className="short-p" onClick={ () => store.modalUpdateTrigger(pwd) }>
                   { new Date(pwd[1].updatedAt).toDateString() }
                 </td>
                 <td className="short-p">
