@@ -20,10 +20,13 @@ import store from '../mobx/index.js'
     if (this.state.query === '') {
       return store.isSearch = false
     }
+    store.query = this.state.query
     if (store.passList) {
       let searched = Object.entries(store.passList).filter(pwd => {
         if (pwd[1].url.indexOf(this.state.query) > -1) {
           return true
+        } else {
+          return false
         }
       })
       store.passFilter = searched

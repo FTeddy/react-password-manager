@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-firebase'
 import { observer } from 'mobx-react'
-import store from '../mobx/index.js'
+// import store from '../mobx/index.js'
 
 import 'bulma/css/bulma.css'
 import '../App.css'
@@ -9,6 +9,7 @@ import '../App.css'
 import PwdSearchBar from './PwdSearchBar'
 import PwdForm from './PwdForm'
 import PwdList from './PwdList'
+import PwdUpdateForm from './PwdUpdateForm'
 
 @observer class PwdHome extends React.Component {
 
@@ -40,6 +41,7 @@ import PwdList from './PwdList'
           </div>
 
           <PwdForm />
+          <PwdUpdateForm />
         </div>
       </div>
     )
