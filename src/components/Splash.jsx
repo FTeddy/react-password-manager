@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-firebase'
 import { observer } from 'mobx-react'
-import store from '../mobx/index.js'
+// import store from '../mobx/index.js'
 import { Route, Switch} from 'react-router-dom';
 
 import 'bulma/css/bulma.css'
@@ -12,9 +12,6 @@ import RegisterForm from './userAcc/RegisterForm'
 import LoginForm from './userAcc/LoginForm'
 
 @observer class Splash extends React.Component {
-  componentDidMount() {
-    console.log(this.props);
-  }
   render () {
     return (
       <div className="hero is-light-blue-bold is-fullheight">
@@ -33,8 +30,8 @@ import LoginForm from './userAcc/LoginForm'
 }
 
 const firebaseToProps = (props, ref) => ({
-  passManager: 'passManager',
-  newData: (data) => { ref('passManager').push(data) }
+  // passManager: 'passManager',
+  // newData: (data) => { ref('passManager').push(data) }
 })
 
 export default connect(firebaseToProps)(Splash);

@@ -37,7 +37,6 @@ import swal from 'sweetalert2'
     if (!store.passList || store.isAdd || store.isDelete) {
       // console.log('step2');
       // if (this.props.passManager) {
-        console.log(snapshot);
         store.passList = snapshot
         let searched = Object.entries(store.passList).filter(pwd => {
           if (pwd[1].url.indexOf(store.query) > -1) {
@@ -162,12 +161,12 @@ import swal from 'sweetalert2'
 }
 
 const firebaseToProps = (props, ref) => ({
-  passManager: 'passManager',
   newData: (data) => { ref('passManager').push(data) },
   removeData: (key) => {
     ref('passManager').child(key).set(null)
   },
-  onLoad: (loadPassList, userId) => { ref('passManager')
+  onLoad: (loadPassList, userId) => {
+    ref('passManager')
     .orderByChild('userId').equalTo(userId)
     // .once('value').then((snapshot) => {
     //   store.isadd = true
@@ -176,7 +175,6 @@ const firebaseToProps = (props, ref) => ({
     // })
     .on('value', (snapshot) => {
       store.isadd = true
-      console.log(snapshot.val());
       loadPassList(snapshot.val())
     })
   }

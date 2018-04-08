@@ -13,7 +13,6 @@ import PwdList from './PwdList'
 import PwdUpdateForm from './PwdUpdateForm'
 
 @observer class PwdHome extends React.Component {
-
   render () {
     return (
       <div className="hero is-light-blue-bold is-fullheight">
@@ -53,8 +52,8 @@ import PwdUpdateForm from './PwdUpdateForm'
 }
 
 const firebaseToProps = (props, ref) => ({
-  passManager: 'passManager',
-  newData: (data) => { ref('passManager').push(data) }
+  // passManager: 'passManager',
+  // newData: (data) => { ref('passManager').push(data) }
 })
 
 export default connect(firebaseToProps)(PwdHome);

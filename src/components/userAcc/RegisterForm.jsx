@@ -17,9 +17,9 @@ import '../../App.css'
     }
   }
 
-  componentDidMount() {
+  // componentDidMount() {
     // this.props.userObserve()
-  }
+  // }
 
   onInput = (e) => {
     this.setState({
@@ -91,7 +91,6 @@ import '../../App.css'
 }
 
 const firebaseToProps = (props, ref, firebaseApp) => ({
-  passAccount: 'passAccount',
   registration: (email, password, username) => {
     firebaseApp.auth().createUserWithEmailAndPassword(email, password).then(()=>{
       firebaseApp.auth().currentUser.updateProfile({
@@ -113,26 +112,26 @@ const firebaseToProps = (props, ref, firebaseApp) => ({
       console.log(err.code);
       console.log(err.message);
     })
-  },
-  updateUserName: (username) => {
-    firebaseApp.auth().currentUser.updateProfile({
-      displayName: username
-    }).catch(err => {
-      console.log(err.code);
-      console.log(err.message);
-    })
-  },
-  userObserve: () => {
-    firebaseApp.auth().onAuthStateChanged( (user) => {
-      if (user) {
-        console.log(user);
-        store.isLogin = true
-      } else {
-        console.log('user loggd out');
-        store.isLogin = false
-      }
-    })
   }
+  // updateUserName: (username) => {
+  //   firebaseApp.auth().currentUser.updateProfile({
+  //     displayName: username
+  //   }).catch(err => {
+  //     console.log(err.code);
+  //     console.log(err.message);
+  //   })
+  // },
+  // userObserve: () => {
+  //   firebaseApp.auth().onAuthStateChanged( (user) => {
+  //     if (user) {
+  //       // console.log(user);
+  //       store.isLogin = true
+  //     } else {
+  //       // console.log('user loggd out');
+  //       store.isLogin = false
+  //     }
+  //   })
+  // }
 })
 
 export default connect(firebaseToProps)(RegisterForm);
