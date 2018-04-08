@@ -2,35 +2,31 @@ import React from 'react'
 import { connect } from 'react-firebase'
 import { observer } from 'mobx-react'
 import store from '../mobx/index.js'
+import { Route, Switch} from 'react-router-dom';
 
 import 'bulma/css/bulma.css'
 import '../App.css'
 
 import SplashNav from './SplashNav'
+import RegisterForm from './userAcc/RegisterForm'
+import LoginForm from './userAcc/LoginForm'
 
 @observer class Splash extends React.Component {
-
-  enterMain = () => {
-    this.props.history.push(`${this.props.match.path}home/1`)
+  componentDidMount() {
+    console.log(this.props);
   }
-
   render () {
     return (
       <div className="hero is-light-blue-bold is-fullheight">
         <div className="hero-head">
           <SplashNav/>
         </div>
-        <div className="hero-body">
 
-          <div className="container">
-            <h1 className="title">Hello</h1>
-            <h2 className="subtitle">{ store.hello }</h2>
-            <button className="button" onClick={ this.enterMain }>
-              Enter
-            </button>
-          </div>
+        <Switch>
+          <Route exact path="/" component={ LoginForm }/>
+          <Route path="/register" component={ RegisterForm }/>
+        </Switch>
 
-        </div>
       </div>
     )
   }

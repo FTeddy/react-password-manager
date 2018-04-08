@@ -17,6 +17,12 @@ import '../App.css'
     }
   }
 
+  componentDidMount() {
+    if (store.isLogin) {
+      this.props.getUserData(this)
+    }
+  }
+
   onInput = (e) => {
     this.setState({
       [e.target.name]: e.target.value
@@ -33,6 +39,7 @@ import '../App.css'
       username: this.state.username,
       password: this.state.password,
       notes: this.state.notes,
+      userId: store.userId,
       createdAt: nowDate.toString(),
       updatedAt: nowDate.toString()
     }
@@ -91,9 +98,13 @@ import '../App.css'
   }
 }
 
-const firebaseToProps = (props, ref) => ({
+const firebaseToProps = (props, ref, firebaseApp) => ({
   passManager: 'passManager',
-  newData: (data) => { ref('passManager').push(data) }
+  newData: (data) => { ref('passManager').push(data) },
+  getUserData: (thisComp) => {
+    console.log(firebaseApp.auth().currentUser.displayName)
+    console.log(firebaseApp.auth().currentUser.email)
+  }
 })
 
 export default connect(firebaseToProps)(PwdForm);

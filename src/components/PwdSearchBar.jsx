@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-firebase'
 import { observer } from 'mobx-react'
 import store from '../mobx/index.js'
 
@@ -8,6 +9,10 @@ import store from '../mobx/index.js'
     this.state = {
       query: ''
     }
+  }
+
+  componentDidMount() {
+    this.props.onLoad(this, store.userId)
   }
 
   onInput = (e) => {
@@ -31,7 +36,7 @@ import store from '../mobx/index.js'
       })
       store.passFilter = searched
       store.isSearch = true
-      console.log(searched);
+      // console.log(searched);
       // console.log(store.passFilter);
     }
   }
@@ -59,4 +64,18 @@ import store from '../mobx/index.js'
   }
 }
 
-export default PwdSearchBar;
+const firebaseToProps = (props, ref) => ({
+  onLoad: (thisComp, userId) => { ref('passManager')
+    .orderByChild('userId').equalTo(userId)
+    // .once('value').then((snapshot) => {
+    //   store.isadd = true
+    //   console.log(snapshot.val());
+    //   loadPassList(snapshot.val())
+    // })
+    .on('value', (snapshot) => {
+      thisComp.searchSites()
+    })
+  }
+})
+
+export default connect(firebaseToProps)(PwdSearchBar);

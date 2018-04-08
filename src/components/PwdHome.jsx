@@ -6,6 +6,7 @@ import { observer } from 'mobx-react'
 import 'bulma/css/bulma.css'
 import '../App.css'
 
+import SplashNav from './SplashNav'
 import PwdSearchBar from './PwdSearchBar'
 import PwdForm from './PwdForm'
 import PwdList from './PwdList'
@@ -16,6 +17,9 @@ import PwdUpdateForm from './PwdUpdateForm'
   render () {
     return (
       <div className="hero is-light-blue-bold is-fullheight">
+        <div className="hero-head">
+          <SplashNav/>
+        </div>
         <div className="hero-head">
 
         </div>

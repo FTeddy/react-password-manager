@@ -12,16 +12,16 @@ import swal from 'sweetalert2'
 
   componentDidMount() {
     this.loadCheck()
-    this.props.onUpdate()
-  }
-
-  componentWillUpdate(nextProps, nextState) {
-    this.loadCheck()
-    this.loadPassList()
+    this.props.onLoad(this.loadPassList, store.userId)
   }
 
   componentWillUnmount() {
     store.isSearch = false
+    store.passList = null
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    this.loadCheck()
   }
 
   loadCheck = () => {
@@ -32,12 +32,13 @@ import swal from 'sweetalert2'
     }
   }
 
-  loadPassList = () => {
-    // console.log('enter');
+  loadPassList = (snapshot) => {
+    // console.log(store.passList);
     if (!store.passList || store.isAdd || store.isDelete) {
-      if (this.props.passManager) {
-        // console.log('confirm');
-        store.passList = this.props.passManager
+      // console.log('step2');
+      // if (this.props.passManager) {
+        console.log(snapshot);
+        store.passList = snapshot
         let searched = Object.entries(store.passList).filter(pwd => {
           if (pwd[1].url.indexOf(store.query) > -1) {
             return true
@@ -48,7 +49,7 @@ import swal from 'sweetalert2'
         store.passFilter = searched
         store.isDelete = false
         store.isAdd = false
-      }
+      // }
     }
   }
 
@@ -58,8 +59,6 @@ import swal from 'sweetalert2'
       text: `You can't recover this data`,
       type: 'warning',
       showCancelButton: true,
-      // confirmButtonColor: '#3085d6',
-      // cancelButtonColor: '#d33',
       confirmButtonText: 'Yes',
       cancelButtonText: 'Cancel',
       confirmButtonClass: 'button is-danger',
@@ -126,7 +125,7 @@ import swal from 'sweetalert2'
         <tbody>
           {
             store.passList ?
-            Object.entries(this.props.passManager).map((pwd, i) => (
+            Object.entries(store.passList).map((pwd, i) => (
               <tr key={ i }>
                 <td className="short-p" onClick={ () => store.modalUpdateTrigger(pwd) }>
                   { pwd[1].url }
@@ -168,19 +167,19 @@ const firebaseToProps = (props, ref) => ({
   removeData: (key) => {
     ref('passManager').child(key).set(null)
   },
-  onUpdate: () => { ref('passManager').on('value', function(snapshot) {
-    // console.log(snapshot.val());
-    store.isadd = true
-    // const passwords = Object.keys(snapshot.val()).map(key => ({
-    //   ...snapshot.val()[key],
-    //   id: key
-    // }))
-    // console.log('pass ==> ', passwords)
-    // store.loadPasswords(passwords)
-    // console.log('this nya', this)
-    // PwdList.getData(passwords)
-    // console.log('store  ', store)
-  }) }
+  onLoad: (loadPassList, userId) => { ref('passManager')
+    .orderByChild('userId').equalTo(userId)
+    // .once('value').then((snapshot) => {
+    //   store.isadd = true
+    //   console.log(snapshot.val());
+    //   loadPassList(snapshot.val())
+    // })
+    .on('value', (snapshot) => {
+      store.isadd = true
+      console.log(snapshot.val());
+      loadPassList(snapshot.val())
+    })
+  }
 })
 
 export default connect(firebaseToProps)(PwdList);

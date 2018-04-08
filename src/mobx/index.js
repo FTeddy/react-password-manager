@@ -9,6 +9,7 @@ class Mobx {
   @observable selectedPass = {}
 
   // Utils
+  @observable isLogin = false
   @observable isLoading = false
   @observable isSearch = false
   @observable isAdd = false
@@ -27,6 +28,11 @@ class Mobx {
     number: false,
     length: false
   }
+  @observable buttonLoginClass = 'button is-rounded full'
+
+  // User
+  @observable displayName = ''
+  @observable userId = ''
 
   @computed get pwdProgress () {
     let progress = Object.entries(this.pwdStatus).filter(prop => prop[1] ? true : false).length
@@ -107,7 +113,7 @@ class Mobx {
       result.number = true
     }
     // length
-    if (pwd.length > 6) {
+    if (pwd.length > 7) {
       result.length = true
     }
     this.pwdStatus = result
