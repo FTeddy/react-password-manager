@@ -1,7 +1,7 @@
 import React from 'react'
-import { connect } from 'react-firebase'
+// import { connect } from 'react-firebase'
 import { observer } from 'mobx-react'
-// import store from '../mobx/index.js'
+import store from '../mobx/index.js'
 
 import 'bulma/css/bulma.css'
 import '../App.css'
@@ -12,7 +12,7 @@ import PwdForm from './PwdForm'
 import PwdList from './PwdList'
 import PwdUpdateForm from './PwdUpdateForm'
 
-@observer class PwdHome extends React.Component {
+@observer export class PwdHome extends React.Component {
   render () {
     return (
       <div className="hero is-light-blue-bold is-fullheight">
@@ -40,7 +40,15 @@ import PwdUpdateForm from './PwdUpdateForm'
               </thead>
               <PwdList />
             </table>
-
+            {
+              store.isLoading ? (
+                <div className="">
+                  <button className="button is-info is-loading full">Loading</button>
+                </div>
+              ) : (
+                <div></div>
+              )
+            }
           </div>
 
           <PwdForm />
@@ -51,9 +59,4 @@ import PwdUpdateForm from './PwdUpdateForm'
   }
 }
 
-const firebaseToProps = (props, ref) => ({
-  // passManager: 'passManager',
-  // newData: (data) => { ref('passManager').push(data) }
-})
-
-export default connect(firebaseToProps)(PwdHome);
+export default PwdHome;

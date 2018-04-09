@@ -108,8 +108,7 @@ import '../App.css'
 }
 
 const firebaseToProps = (props, ref) => ({
-  passManager: 'passManager',
-  updateData: (data) => { ref('passManager').child(store.selectedPass[0]).update(data) }
+  updateData: /* istanbul ignore next line */ (data) => { /* istanbul ignore next line */ ref('passManager').child(store.selectedPass[0]).update(data) }
 })
 
 export default connect(firebaseToProps)(PwdUpdateForm);

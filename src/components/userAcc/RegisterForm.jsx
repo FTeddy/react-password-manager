@@ -17,10 +17,6 @@ import '../../App.css'
     }
   }
 
-  // componentDidMount() {
-    // this.props.userObserve()
-  // }
-
   onInput = (e) => {
     this.setState({
       [e.target.name]: e.target.value
@@ -48,6 +44,7 @@ import '../../App.css'
       }
     }
   }
+  
   render () {
     return (
       <div className="hero-body">

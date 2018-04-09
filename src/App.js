@@ -8,7 +8,7 @@ import Splash from './components/Splash.jsx'
 import ErrorPage from './components/ErrorPage.jsx'
 import PwdHome from './components/PwdHome.jsx'
 
-@observer class App extends Component {
+@observer export class App extends Component {
   render() {
     return (
       <BrowserRouter>

@@ -17,6 +17,7 @@ import store from '../../mobx/index.js'
       [e.target.name]: e.target.value
     })
   }
+
   login = () => {
     if (store.isLoading === false) {
       store.isLoading = true
@@ -25,9 +26,11 @@ import store from '../../mobx/index.js'
     }
   }
 
-  enterMain = () => {
+  enterMain = /* istanbul ignore next line */ () => {
+    /* istanbul ignore next line */
     this.props.history.push(`${this.props.match.path}home/1`)
   }
+
   render () {
     return (
       <div className="hero-body">
@@ -77,14 +80,15 @@ import store from '../../mobx/index.js'
 }
 
 const firebaseToProps = (props, ref, firebaseApp) => ({
-  passAccount: 'passAccount',
-  newAccount: (data) => { ref('passAccount').push(data) },
   login: (email, password) => {
+    /* istanbul ignore next line */
     firebaseApp.auth().signInWithEmailAndPassword(email, password).then(()=>{
       console.log('logged in');
+      /* istanbul ignore next line */
       store.isLoading = false
       store.buttonLoginClass = 'button is-rounded full'
     }).catch(err =>{
+      /* istanbul ignore next line */
       this.setState({
         err: err.message
       })

@@ -6,7 +6,7 @@ import store from '../mobx/index.js'
 import 'bulma/css/bulma.css'
 import '../App.css'
 
-@observer class PwdForm extends React.Component {
+@observer export class PwdForm extends React.Component {
   constructor () {
     super()
     this.state = {
@@ -16,12 +16,6 @@ import '../App.css'
       notes: ''
     }
   }
-
-  // componentDidMount() {
-    // if (store.isLogin) {
-    //   this.props.getUserData(this)
-    // }
-  // }
 
   onInput = (e) => {
     this.setState({
@@ -99,12 +93,7 @@ import '../App.css'
 }
 
 const firebaseToProps = (props, ref, firebaseApp) => ({
-  // passManager: 'passManager',
   newData: (data) => { ref('passManager').push(data) }
-  // getUserData: (thisComp) => {
-  //   console.log(firebaseApp.auth().currentUser.displayName)
-  //   console.log(firebaseApp.auth().currentUser.email)
-  // }
 })
 
 export default connect(firebaseToProps)(PwdForm);

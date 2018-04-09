@@ -8,11 +8,10 @@ import '../App.css'
 
 import swal from 'sweetalert2'
 
-@observer class PwdList extends React.Component {
-
+@observer export class PwdList extends React.Component {
   componentDidMount() {
-    this.loadCheck()
-    this.props.onLoad(this.loadPassList, store.userId)
+    this.props.onLoading(this.loadPassList, store.userId, () => {
+    })
   }
 
   componentWillUnmount() {
@@ -20,39 +19,24 @@ import swal from 'sweetalert2'
     store.passList = null
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    this.loadCheck()
-  }
-
-  loadCheck = () => {
-    if (!this.props.passManager) {
-      store.isLoading = true
-    } else {
+  loadPassList = (snapshot) => {
+    if (!store.passList || store.isAdd || store.isDelete) {
+      store.passList = snapshot
+      let searched = Object.entries(store.passList).filter(pwd => {
+        if (pwd[1].url.indexOf(store.query) > -1) {
+          return true
+        } else {
+          return false
+        }
+      })
+      store.passFilter = searched
+      store.isDelete = false
+      store.isAdd = false
       store.isLoading = false
     }
   }
 
-  loadPassList = (snapshot) => {
-    // console.log(store.passList);
-    if (!store.passList || store.isAdd || store.isDelete) {
-      // console.log('step2');
-      // if (this.props.passManager) {
-        store.passList = snapshot
-        let searched = Object.entries(store.passList).filter(pwd => {
-          if (pwd[1].url.indexOf(store.query) > -1) {
-            return true
-          } else {
-            return false
-          }
-        })
-        store.passFilter = searched
-        store.isDelete = false
-        store.isAdd = false
-      // }
-    }
-  }
-
-  deleteData = (pwd) => {
+  deleteData = (pwd, cb) => {
     swal({
       title: 'Are you sure',
       text: `You can't recover this data`,
@@ -68,6 +52,7 @@ import swal from 'sweetalert2'
       if (result.value) {
         store.isDelete = true
         this.props.removeData(pwd)
+        cb()
         swal(
           'Entry Deleted',
           'The site account data is removed',
@@ -78,10 +63,6 @@ import swal from 'sweetalert2'
 
   }
 
-  static getData = (passwords) => {
-    store.loadPasswords(passwords)
-  }
-
   render () {
     if (store.isSearch) {
       return (
@@ -90,26 +71,26 @@ import swal from 'sweetalert2'
             store.passFilter ?
             store.passFilter.map((pwd, i) => (
               <tr key={ i }>
-                <td className="short-p" onClick={ () => store.modalUpdateTrigger(pwd) }>
+                <td className="short-p" onClick={ /* istanbul ignore next line */ () => store.modalUpdateTrigger(pwd) }>
                   { pwd[1].url }
                 </td>
-                <td className="short-p" onClick={ () => store.modalUpdateTrigger(pwd) }>
+                <td className="short-p" onClick={ /* istanbul ignore next line */ () => store.modalUpdateTrigger(pwd) }>
                   { pwd[1].username }
                 </td>
-                <td className="short-p" onClick={ () => store.modalUpdateTrigger(pwd) }>
+                <td className="short-p" onClick={ /* istanbul ignore next line */ () => store.modalUpdateTrigger(pwd) }>
                   { pwd[1].password }
                 </td>
-                <td className="short-p" onClick={ () => store.modalUpdateTrigger(pwd) }>
+                <td className="short-p" onClick={ /* istanbul ignore next line */ () => store.modalUpdateTrigger(pwd) }>
                   { pwd[1].notes }
                 </td>
-                <td className="short-p" onClick={ () => store.modalUpdateTrigger(pwd) }>
+                <td className="short-p" onClick={ /* istanbul ignore next line */ () => store.modalUpdateTrigger(pwd) }>
                   { new Date(pwd[1].createdAt).toDateString() }
                 </td>
-                <td className="short-p" onClick={ () => store.modalUpdateTrigger(pwd) }>
+                <td className="short-p" onClick={ /* istanbul ignore next line */ () => store.modalUpdateTrigger(pwd) }>
                   { new Date(pwd[1].updatedAt).toDateString() }
                 </td>
                 <td className="short-p">
-                  <button className="delete is-medium" onClick={ () => this.deleteData(pwd[0]) }></button>
+                  <button className="delete is-medium" onClick={ /* istanbul ignore next line */ () => this.deleteData(pwd[0]) }></button>
                 </td>
               </tr>
             ))
@@ -126,26 +107,26 @@ import swal from 'sweetalert2'
             store.passList ?
             Object.entries(store.passList).map((pwd, i) => (
               <tr key={ i }>
-                <td className="short-p" onClick={ () => store.modalUpdateTrigger(pwd) }>
+                <td className="short-p" onClick={ /* istanbul ignore next line */ () => store.modalUpdateTrigger(pwd) }>
                   { pwd[1].url }
                 </td>
-                <td className="short-p" onClick={ () => store.modalUpdateTrigger(pwd) }>
+                <td className="short-p" onClick={ /* istanbul ignore next line */ () => store.modalUpdateTrigger(pwd) }>
                   { pwd[1].username }
                 </td>
-                <td className="short-p" onClick={ () => store.modalUpdateTrigger(pwd) }>
+                <td className="short-p" onClick={ /* istanbul ignore next line */ () => store.modalUpdateTrigger(pwd) }>
                   { pwd[1].password }
                 </td>
-                <td className="short-p" onClick={ () => store.modalUpdateTrigger(pwd) }>
+                <td className="short-p" onClick={ /* istanbul ignore next line */ () => store.modalUpdateTrigger(pwd) }>
                   { pwd[1].notes }
                 </td>
-                <td className="short-p" onClick={ () => store.modalUpdateTrigger(pwd) }>
+                <td className="short-p" onClick={ /* istanbul ignore next line */ () => store.modalUpdateTrigger(pwd) }>
                   { new Date(pwd[1].createdAt).toDateString() }
                 </td>
-                <td className="short-p" onClick={ () => store.modalUpdateTrigger(pwd) }>
+                <td className="short-p" onClick={ /* istanbul ignore next line */ () => store.modalUpdateTrigger(pwd) }>
                   { new Date(pwd[1].updatedAt).toDateString() }
                 </td>
                 <td className="short-p">
-                  <button className="delete is-medium" onClick={ () => this.deleteData(pwd[0]) }></button>
+                  <button className="delete is-medium" onClick={ /* istanbul ignore next line */ () => this.deleteData(pwd[0]) }></button>
                 </td>
               </tr>
             ))
@@ -161,11 +142,12 @@ import swal from 'sweetalert2'
 }
 
 const firebaseToProps = (props, ref) => ({
-  newData: (data) => { ref('passManager').push(data) },
   removeData: (key) => {
     ref('passManager').child(key).set(null)
   },
-  onLoad: (loadPassList, userId) => {
+  onLoading: (loadPassList, userId, cb) => {
+    store.isLoading = true
+    cb()
     ref('passManager')
     .orderByChild('userId').equalTo(userId)
     // .once('value').then((snapshot) => {
@@ -173,6 +155,7 @@ const firebaseToProps = (props, ref) => ({
     //   console.log(snapshot.val());
     //   loadPassList(snapshot.val())
     // })
+    /* istanbul ignore next line */
     .on('value', (snapshot) => {
       store.isadd = true
       loadPassList(snapshot.val())

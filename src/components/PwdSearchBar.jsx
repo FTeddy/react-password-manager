@@ -3,7 +3,7 @@ import { connect } from 'react-firebase'
 import { observer } from 'mobx-react'
 import store from '../mobx/index.js'
 
-@observer class PwdSearchBar extends React.Component {
+@observer export class PwdSearchBar extends React.Component {
   constructor () {
     super()
     this.state = {
@@ -31,13 +31,12 @@ import store from '../mobx/index.js'
         if (pwd[1].url.indexOf(this.state.query) > -1) {
           return true
         } else {
+          /* istanbul ignore next line */
           return false
         }
       })
       store.passFilter = searched
       store.isSearch = true
-      // console.log(searched);
-      // console.log(store.passFilter);
     }
   }
 
@@ -65,14 +64,12 @@ import store from '../mobx/index.js'
 }
 
 const firebaseToProps = (props, ref) => ({
-  onLoad: (thisComp, userId) => { ref('passManager')
+  onLoad: (thisComp, userId) => {
+    /* istanbul ignore next line */
+    ref('passManager')
     .orderByChild('userId').equalTo(userId)
-    // .once('value').then((snapshot) => {
-    //   store.isadd = true
-    //   console.log(snapshot.val());
-    //   loadPassList(snapshot.val())
-    // })
     .on('value', (snapshot) => {
+      /* istanbul ignore next line */
       thisComp.searchSites()
     })
   }

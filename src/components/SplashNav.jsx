@@ -7,11 +7,11 @@ import store from '../mobx/index.js'
 import 'bulma/css/bulma.css'
 import '../App.css'
 
-@observer class SplashNav extends React.Component {
+@observer export class SplashNav extends React.Component {
   componentDidMount() {
     this.props.userObserve()
-    // console.log(this.props);
   }
+
   render () {
     return (
       <nav className="navbar" aria-label="main navigation">
@@ -37,12 +37,10 @@ const firebaseToProps = (props, ref, firebaseApp) => ({
   userObserve: () => {
     firebaseApp.auth().onAuthStateChanged( (user) => {
       if (user) {
-        // console.log(user);
         store.isLogin = true
         store.displayName = user.displayName
         store.userId = user.uid
       } else {
-        // console.log('user loggd out');
         store.isLogin = false
         store.displayName = ''
         store.userId = ''
