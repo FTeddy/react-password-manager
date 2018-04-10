@@ -25,8 +25,9 @@ import '../../App.css'
       store.passValidate(e.target.value)
     }
   }
-  submitRegistration = () => {
+  submitRegistration = (cb) => {
     if (store.isLoading === false) {
+
       if (store.pwdProgress >= 80) {
         store.isLoading = true
         store.buttonLoginClass = 'button is-rounded is-loading full'
@@ -40,11 +41,14 @@ import '../../App.css'
       } else {
         this.setState({
           err: 'Password should be at least 8 characters long and include lowercase, uppercase, numbers and special characters'
+        }, () => {
+          cb()
         })
+
       }
     }
   }
-  
+
   render () {
     return (
       <div className="hero-body">
@@ -75,7 +79,7 @@ import '../../App.css'
                 </p>
               </div>
               <div className="control short">
-                <button className={ store.buttonLoginClass } onClick={ this.submitRegistration }>Submit</button>
+                <button className={ store.buttonLoginClass } onClick={ () => this.submitRegistration(()=>{}) }>Submit</button>
               </div>
 
             </div>
